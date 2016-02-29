@@ -14,9 +14,14 @@ Kylin.chart=function(){
 			right:20
 		}
 					
-		this.drawAxis()
-		this.bar()
-		this.pie()
+		switch(config.type){
+			case 'bar':
+				this.bar()
+				break	
+			case 'pie':
+				this.pie()
+				break
+		}
 	}
 	init.prototype = {
 		drawLine:function(oX,oY,x,y,angle){
@@ -48,14 +53,10 @@ Kylin.chart=function(){
 			return maxItem
 		},
 		proportion:function(){
-			var data = this.data.slice()
-			data.sort(function(a,b){
-				return b-a
-			})
-			this.per = this.height / data[0]
-			//this.per = this.height / this.maxVal(this.data)
+			this.per = this.height / this.maxVal(this.data)
 		},
 		bar:function(){
+			this.drawAxis()
 			var ctx = this.ctx,
 			space = 10,
 			colNumber = this.data.length
@@ -140,5 +141,5 @@ Kylin.chart=function(){
 				})
 			}
 		}
-				return init
+	return init
 }();
